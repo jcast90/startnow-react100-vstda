@@ -1,8 +1,6 @@
 import React from 'react';
 import Default from './items/default';
-import LowPriority from './items/low';
-import MediumPriority from './items/medium';
-import HighPriority from './items/high';
+import Item from './items/item';
 
 export default props => (
   <div className="col-md-8">
@@ -10,9 +8,7 @@ export default props => (
       <div className="panel-heading">View Todos</div>
       <div className="panel-body">
         <Default />
-        <LowPriority />
-        <MediumPriority />
-        <HighPriority />
+        <Item />
       </div>
     </div>
   </div>
