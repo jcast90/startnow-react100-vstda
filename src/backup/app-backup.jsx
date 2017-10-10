@@ -7,13 +7,16 @@ class App extends Component {
     super(props);
 
     this.state = {
-      todoItems: []
+      todoItems: [],
+      modal: false
     };
 
     this.addTodo = this.addTodo.bind(this);
     // this.handleCompleted = this.handleCompleted.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleModalAdd = this.handleModalAdd.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   addTodo({ index, desc, priority }) {
@@ -40,29 +43,54 @@ class App extends Component {
     this.setState({ todoItems });
   }
 
+  handleModalAdd() {
+    this.setState({ modal: true });
+  }
+
+  handleModalClose() {
+    this.setState({ modal: false });
+  }
+
   handleDelete({ index }) {
     var todoItems = [...this.state.todoItems];
-    todoItems.splice(index, 1);
+    todoItems.splice(todoItems[index], 1);
     this.setState({ todoItems });
   }
+
   renderDefaultMessage() {
     if (this.state.todoItems.length < 1) {
       return (
         <div className="alert alert-info" role="alert">
-          <h2>Welcome to Very Simple Todo App!!</h2>
-          <p>Get started now by adding a new todo on the left!</p>
+          <h2>Welcome to getting $h!t done!!</h2>
+          <p>Get started now by adding a new todo item</p>
+          <button id="open-add-modal" onClick={this.handleModalAdd}>
+            Stop being lazy and add something todo!
+          </button>
         </div>
       );
     }
   }
+
+  renderModal() {
+    console.log('true');
+    return (
+      <div className="myModal-wrapper">
+        <div className="myModal-content">
+          <AddForm addTodo={this.addTodo} />
+        </div>
+        <div className="myModal-footer">
+          <button onClick={this.handleModalClose}>close</button>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="container">
-        <h1>Very Simple ToDo App</h1>
+        <h1>Get $h!t Done</h1>
         <h3>Track all of the things</h3>
         <div className="row">
-          <AddForm addTodo={this.addTodo} />
-
           <div className="col-md-8">
             <div className="panel panel-default">
               <div className="panel-heading">View Todos</div>
@@ -81,6 +109,9 @@ class App extends Component {
                     />
                   );
                 })}
+                {this.state.modal
+                  ? this.renderModal()
+                  : console.log('this failed')}
               </div>
             </div>
           </div>

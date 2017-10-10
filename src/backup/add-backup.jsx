@@ -9,18 +9,10 @@ export class AddForm extends Component {
       desc: '',
       priority: ''
     };
-
-    this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleAdd() {
     this.props.addTodo(this.state);
-
-    this.setState({
-      index: '',
-      desc: '',
-      priority: ''
-    });
   }
 
   handleChange(key) {
@@ -29,7 +21,7 @@ export class AddForm extends Component {
 
   render() {
     return (
-      <div className="col-md-4">
+      <div className="form-wrapper">
         <div className="panel panel-default">
           <div className="panel-heading">Add New ToDo</div>
           <div className="panel-body">
@@ -38,7 +30,7 @@ export class AddForm extends Component {
               <textarea
                 className="create-todo-text form-control"
                 id="new-todo"
-                value={this.state.desc}
+                value={this.props.desc}
                 onChange={this.handleChange('desc')}
                 rows="3"
               />
@@ -62,7 +54,7 @@ export class AddForm extends Component {
             <div className="form-group">
               <button
                 className="add btn btn-success btn-block"
-                onClick={this.handleAdd}
+                onClick={this.handleAdd.bind(this)}
               >
                 Add
               </button>
